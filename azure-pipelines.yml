@@ -23,17 +23,3 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-
-# Step 3: Copy Build Artifacts to Artifact Staging Directory
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/target'  # Path to the folder containing the built .jar/.war files
-    Contents: '**/*.jar'  # Include all .jar files
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'  # Artifact staging directory
-
-# Step 4: Publish Artifacts (make them available for later stages like deployment)
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # Path where build artifacts are staged
-    ArtifactName: 'drop'  # Name of the artifact
-    publishLocation: 'Container'  # Publish to Azure DevOps artifact container
