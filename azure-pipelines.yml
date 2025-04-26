@@ -32,3 +32,10 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+  
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'azure-sp-connection'  # Your Azure service connection name
+    appName: 'av-spring-petclinic'  # Your App Service name
+    package: '$(Build.ArtifactStagingDirectory)/**/*.jar'
